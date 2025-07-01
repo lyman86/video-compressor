@@ -1,0 +1,40 @@
+# 构建输出
+build/
+dist/
+*.spec
+
+# Python缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 虚拟环境
+venv/
+env/
+ENV/
+
+# IDE和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+
+# 压缩的视频文件（测试输出）
+compressed/
+
+# 临时文件
+*.tmp
+*.temp
+
+# 任务文件（开发用）
+.tasks/
+.cursor/ 

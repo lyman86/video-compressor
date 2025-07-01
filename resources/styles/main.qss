@@ -1,0 +1,406 @@
+/* 视频压缩器 - 简约现代主题样式 */
+
+/* 全局样式 */
+QMainWindow {
+    background-color: #f5f5f5;
+    color: #333333;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 标题区域样式 */
+#headerFrame {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0,
+                                stop: 0 #4158D0, stop: 1 #C850C0);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+}
+
+#titleLabel {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+#subtitleLabel {
+    font-size: 13px;
+    color: #E0E0E0;
+}
+
+#ffmpegStatus {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #FF6B6B;
+    color: white;
+}
+
+/* 主面板样式 */
+#leftPanel, #rightPanel {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 5px;
+}
+
+/* 区域标题样式 */
+#sectionLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* 文件拖拽区域 */
+#fileDropArea {
+    background-color: #f9f9f9;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    min-height: 160px;
+    max-height: 240px;
+}
+
+#dropInfoLabel {
+    font-size: 14px;
+    color: #777;
+    font-weight: normal;
+}
+
+/* 视频信息区域 */
+#videoInfoFrame {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    min-height: 120px;
+    /* 去掉max-height限制，让内容可以自适应 */
+}
+
+#videoInfoLabel {
+    font-size: 12px;
+    color: #666;
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* 压缩设置区域 */
+#compressionSettings {
+    background-color: #ffffff;
+    border: none;
+}
+
+/* 压缩设置组群框样式 */
+QGroupBox {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2c3e50;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    background-color: #ffffff;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 12px;
+    padding: 0 8px 0 8px;
+    background-color: #ffffff;
+    color: #495057;
+}
+
+/* 压缩设置下拉框 */
+QComboBox {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 6px 12px;
+    background-color: #ffffff;
+    font-size: 12px;
+    min-height: 24px;
+    color: #495057;
+}
+
+QComboBox:hover {
+    border-color: #4158D0;
+    background-color: #f8f9fa;
+}
+
+QComboBox:focus {
+    border-color: #4158D0;
+    outline: none;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 24px;
+    background-color: transparent;
+}
+
+QComboBox::down-arrow {
+    width: 14px;
+    height: 14px;
+    background-color: #6c757d;
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid #ced4da;
+    background-color: #ffffff;
+    color: #495057;
+    selection-background-color: #e9ecef;
+}
+
+/* 滑块样式 */
+QSlider::groove:horizontal {
+    border: 1px solid #e9ecef;
+    height: 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background: #4158D0;
+    border: 2px solid #ffffff;
+    width: 20px;
+    margin: -7px 0;
+    border-radius: 10px;
+}
+
+QSlider::handle:horizontal:hover {
+    background: #3146B8;
+}
+
+QSlider::sub-page:horizontal {
+    background: #4158D0;
+    border-radius: 4px;
+}
+
+/* 复选框样式 */
+QCheckBox {
+    font-size: 13px;
+    color: #495057;
+    spacing: 8px;
+    font-weight: 500;
+}
+
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+}
+
+QCheckBox::indicator:unchecked {
+    border: 2px solid #ced4da;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+QCheckBox::indicator:unchecked:hover {
+    border-color: #4158D0;
+    background-color: #f8f9fa;
+}
+
+QCheckBox::indicator:checked {
+    border: 2px solid #28a745;
+    background-color: #28a745;
+    border-radius: 4px;
+}
+
+QCheckBox::indicator:checked:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* 标签样式 */
+QLabel {
+    color: #495057;
+    font-size: 12px;
+}
+
+/* 压缩设置内的特殊标签 */
+#compressionSettings QLabel {
+    color: #6c757d;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* 预设描述标签样式 */
+#presetDescription {
+    color: #6c757d;
+    font-size: 11px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    margin: 4px 0;
+    line-height: 1.4;
+}
+
+#settingsInfoLabel {
+    font-size: 12px;
+    color: #666;
+    font-weight: normal;
+}
+
+/* 按钮样式 */
+QPushButton {
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    min-height: 25px;
+}
+
+#compressButton {
+    background-color: #28a745;
+    color: white;
+    font-size: 14px;
+    min-height: 40px;
+}
+
+#compressButton:hover {
+    background-color: #218838;
+}
+
+#compressButton:disabled {
+    background-color: #999;
+    color: #ccc;
+}
+
+#previewButton {
+    background-color: #007bff;
+    color: white;
+}
+
+#previewButton:hover {
+    background-color: #0056b3;
+}
+
+#previewButton:disabled {
+    background-color: #999;
+    color: #ccc;
+}
+
+#resetButton {
+    background-color: #6c757d;
+    color: white;
+}
+
+#resetButton:hover {
+    background-color: #5a6268;
+}
+
+/* 底部区域样式 */
+#footerFrame {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-height: 70px;
+}
+
+#statusInfoLabel {
+    font-size: 12px;
+    color: #666;
+    font-weight: normal;
+}
+
+/* 进度条样式 */
+#progressBar {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    height: 20px;
+}
+
+#progressBar::chunk {
+    background-color: #28a745;
+    border-radius: 3px;
+}
+
+/* 分割器样式 */
+QSplitter::handle {
+    background-color: #ccc;
+    width: 3px;
+}
+
+QSplitter::handle:hover {
+    background-color: #999;
+}
+
+/* 菜单栏样式 */
+QMenuBar {
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    color: #555;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    padding: 6px 12px;
+}
+
+QMenuBar::item:selected {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+/* 文件选择按钮样式 */
+#selectFileButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    min-height: 35px;
+}
+
+#selectFileButton:hover {
+    background-color: #0056b3;
+}
+
+/* 改进文件拖拽区域悬停效果 */
+#fileDropArea:hover {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+/* 菜单样式 */
+QMenu {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+QMenu::item {
+    padding: 6px 12px;
+}
+
+QMenu::item:selected {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* 状态栏样式 */
+QStatusBar {
+    background-color: transparent;
+    border: none;
+    font-size: 11px;
+    color: #666;
+}
+
+/* 工具提示样式 */
+QToolTip {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 11px;
+} 

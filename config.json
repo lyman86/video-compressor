@@ -1,0 +1,26 @@
+{
+    "app": {
+        "name": "视频压缩器",
+        "version": "1.0.0",
+        "window": {
+            "width": 1000,
+            "height": 750,
+            "min_width": 800,
+            "min_height": 600
+        }
+    },
+    "video": {
+        "supported_formats": [".mp4", ".avi", ".mov", ".mkv", ".flv", ".wmv"],
+        "output_format": ".mp4",
+        "max_file_size_mb": 2048
+    },
+    "compression": {
+        "default_preset": "standard",
+        "keep_audio_default": true,
+        "output_directory": "compressed"
+    },
+    "ui": {
+        "theme": "dark",
+        "language": "zh_CN"
+    }
+} 

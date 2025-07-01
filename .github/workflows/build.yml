@@ -1,0 +1,65 @@
+name: 构建多平台可执行文件
+
+on:
+  push:
+    tags:
+      - 'v*'  # 当推送版本标签时触发
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            platform: windows
+            artifact: VideoCompressor-Windows.zip
+          - os: macos-latest
+            platform: macos
+            artifact: VideoCompressor-macOS.zip
+    
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+    
+    - name: 设置Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: 安装依赖
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+    
+    - name: 创建默认图标
+      run: python create_icons.py <<< ""
+    
+    - name: Windows打包
+      if: matrix.platform == 'windows'
+      run: |
+        python build_script.py <<< "y"
+        Compress-Archive -Path dist/VideoCompressor -DestinationPath VideoCompressor-Windows.zip
+    
+    - name: macOS打包
+      if: matrix.platform == 'macos'
+      run: |
+        python build_script.py <<< "y"
+        zip -r VideoCompressor-macOS.zip dist/VideoCompressor.app
+    
+    - name: 上传构建产物
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.artifact }}
+        path: ${{ matrix.artifact }}
+    
+    - name: 创建Release（仅标签推送时）
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ matrix.artifact }}
+        draft: false
+        prerelease: false 
