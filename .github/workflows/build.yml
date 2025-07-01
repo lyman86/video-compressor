@@ -65,7 +65,9 @@ jobs:
         # 创建包含exe的目录结构
         mkdir VideoCompressor-Windows
         copy dist\VideoCompressor.exe VideoCompressor-Windows\
-        copy README.md VideoCompressor-Windows\ 2>nul || echo "README not found"
+        # Create simple usage instructions
+        echo "VideoCompressor - Video Compression Tool" > VideoCompressor-Windows\README.txt
+        echo "Double-click VideoCompressor.exe to start the program" >> VideoCompressor-Windows\README.txt
         Compress-Archive -Path VideoCompressor-Windows -DestinationPath VideoCompressor-Windows.zip
     
     - name: macOS打包
@@ -77,7 +79,9 @@ jobs:
         # 创建包含app的目录结构
         mkdir VideoCompressor-macOS
         cp dist/VideoCompressor VideoCompressor-macOS/
-        cp README.md VideoCompressor-macOS/ 2>/dev/null || echo "README not found"
+        # Create simple usage instructions
+        echo "VideoCompressor - Video Compression Tool" > VideoCompressor-macOS/README.txt
+        echo "Double-click VideoCompressor to start the program" >> VideoCompressor-macOS/README.txt
         zip -r VideoCompressor-macOS.zip VideoCompressor-macOS
     
     - name: 上传构建产物
