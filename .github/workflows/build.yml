@@ -41,7 +41,7 @@ jobs:
         # 使用特定版本避免兼容性问题
         pip install PyQt5==5.15.10 --no-cache-dir
         pip install requests==2.31.0 pyinstaller==6.3.0 Pillow==10.1.0
-        echo "依赖安装完成"
+        echo "Dependencies installed successfully"
     
     - name: 准备图标文件
       run: |
@@ -54,7 +54,7 @@ jobs:
         icons_dir = Path('resources/icons')
         icons_dir.mkdir(parents=True, exist_ok=True)
         
-        print('图标目录准备完成')
+        print('Icons directory ready')
         "
     
     - name: Windows打包
