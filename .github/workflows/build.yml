@@ -27,27 +27,69 @@ jobs:
     - name: 设置Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.10'  # 使用更稳定的Python 3.10
     
-    - name: 安装依赖
+    - name: 安装系统依赖 (macOS)
+      if: matrix.platform == 'macos'
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pyinstaller
+        # 安装macOS系统依赖
+        brew install create-dmg
+    
+    - name: 安装Python依赖
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        # 直接安装PyQt5预编译包，避免编译问题
+        pip install PyQt5-Qt5==5.15.2 PyQt5==5.15.7 --only-binary=all
+        pip install requests pyinstaller
+        # 跳过其他可能有问题的依赖
     
     - name: 创建默认图标
-      run: python create_icons.py <<< ""
+      run: |
+        # 使用非交互式方式创建默认图标
+        python -c "
+        import sys
+        sys.path.append('.')
+        from create_icons import create_default_icon, create_ico_icon, create_icns_icon_with_pillow
+        import os
+        from pathlib import Path
+        
+        # 创建图标目录
+        icons_dir = Path('resources/icons')
+        icons_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 创建默认图标
+        png_path = create_default_icon()
+        if png_path:
+            # 创建ICO和ICNS
+            create_ico_icon(png_path, str(icons_dir / 'app.ico'))
+            create_icns_icon_with_pillow(png_path, str(icons_dir / 'app.icns'))
+            print('图标创建完成')
+        "
     
     - name: Windows打包
       if: matrix.platform == 'windows'
       run: |
-        python build_script.py <<< "y"
+        # 使用非交互式打包
+        python -c "
+        import sys
+        sys.path.append('.')
+        from build_script import create_spec_file, build_app
+        create_spec_file()
+        build_app()
+        "
         Compress-Archive -Path dist/VideoCompressor -DestinationPath VideoCompressor-Windows.zip
     
     - name: macOS打包
       if: matrix.platform == 'macos'
       run: |
-        python build_script.py <<< "y"
+        # 使用非交互式打包
+        python -c "
+        import sys
+        sys.path.append('.')
+        from build_script import create_spec_file, build_app
+        create_spec_file()
+        build_app()
+        "
         zip -r VideoCompressor-macOS.zip dist/VideoCompressor.app
     
     - name: 上传构建产物
