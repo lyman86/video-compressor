@@ -7,7 +7,7 @@
 **现代化视频压缩工具 - 简单易用的界面化视频处理解决方案**
 
 [![Release](https://img.shields.io/github/v/release/lyman86/video-compressor)](https://github.com/lyman86/video-compressor/releases)
-[![Build Status](https://github.com/lyman86/video-compressor/workflows/构建多平台可执行文件/badge.svg)](https://github.com/lyman86/video-compressor/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/lyman86/video-compressor/build.yml)](https://github.com/lyman86/video-compressor/actions)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-lightgrey.svg)](#下载)
