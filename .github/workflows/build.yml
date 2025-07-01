@@ -47,7 +47,15 @@ jobs:
       run: |
         python -c "
         import os
+        import sys
         from pathlib import Path
+        
+        # 设置UTF-8编码（避免Windows编码问题）
+        if sys.platform.startswith('win'):
+            import locale
+            import codecs
+            sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+            sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
         
         # 确保图标目录存在
         icons_dir = Path('resources/icons')
@@ -57,39 +65,27 @@ jobs:
         ico_path = icons_dir / 'app.ico'
         icns_path = icons_dir / 'app.icns'
         
-        # 如果图标不存在，创建空文件（PyInstaller会处理）
+        # 如果图标不存在，创建空文件
         if not ico_path.exists():
             ico_path.write_bytes(b'')
         if not icns_path.exists():
             icns_path.write_bytes(b'')
             
-        print('图标文件准备完成')
+        print('Icon files ready')
         "
     
     - name: Windows打包
       if: matrix.platform == 'windows'
       run: |
-        # 使用非交互式打包
-        python -c "
-        import sys
-        sys.path.append('.')
-        from build_script import create_spec_file, build_app
-        create_spec_file()
-        build_app()
-        "
+        # 直接使用PyInstaller命令行打包，包含资源文件
+        pyinstaller --onedir --windowed --name=VideoCompressor --icon=resources/icons/app.ico --add-data="resources;resources" --add-data="config.json;." main.py
         Compress-Archive -Path dist/VideoCompressor -DestinationPath VideoCompressor-Windows.zip
     
     - name: macOS打包
       if: matrix.platform == 'macos'
       run: |
-        # 使用非交互式打包
-        python -c "
-        import sys
-        sys.path.append('.')
-        from build_script import create_spec_file, build_app
-        create_spec_file()
-        build_app()
-        "
+        # 直接使用PyInstaller命令行打包，包含资源文件
+        pyinstaller --onedir --windowed --name=VideoCompressor --icon=resources/icons/app.icns --add-data="resources:resources" --add-data="config.json:." main.py
         zip -r VideoCompressor-macOS.zip dist/VideoCompressor.app
     
     - name: 上传构建产物
